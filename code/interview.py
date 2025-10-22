@@ -123,11 +123,11 @@ if user_text:
 
 
 # ------- utilities -------
-col1 = st.columns(1)
+# col1 = st.columns(1)
 
-with col1:
-    # limit to N turns if you wish
-    MAX_TURNS = 200
-    if len(st.session_state.history) >= MAX_TURNS and not st.session_state.ended:
-        st.session_state.ended = True
-        st.warning("Turn limit reached.")
+# with col1:
+#     # limit to N turns if you wish
+#     MAX_TURNS = 200
+#     if len(st.session_state.history) >= MAX_TURNS and not st.session_state.ended:
+#         st.session_state.ended = True
+#         st.warning("Turn limit reached.")
