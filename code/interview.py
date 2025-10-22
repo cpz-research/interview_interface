@@ -5,7 +5,7 @@ import time
 import requests
 import streamlit as st
 
-API_URL = "https://90nyqn9u99.execute-api.eu-north-1.amazonaws.com/Prod/"
+API_URL = "https://xakur8y87j.execute-api.eu-north-1.amazonaws.com/Prod/"
 
 st.set_page_config(page_title="Study Chat", page_icon="💬", layout="centered")
 st.title("Study Chat")
