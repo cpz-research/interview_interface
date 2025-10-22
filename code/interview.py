@@ -33,19 +33,19 @@ sid_default = str(uuid.uuid4())
 sid = get_param(params, "sid", sid_default)
 iid = get_param(params, "iid", "PART_TIME")
 
-with st.sidebar:
-    st.subheader("Session")
-    st.write(f"Session ID: `{sid}`")
-    st.write(f"Interview ID: `{iid}`")
-    st.write("Share a link like:")
-    st.code("https://YOUR_HOST:7860/?sid=FRIEND123&iid=PART_TIME", language="text")
-    st.caption("Use sid to tag invitees. iid switches study variants.")
+# with st.sidebar:
+#     st.subheader("Session")
+#     st.write(f"Session ID: `{sid}`")
+#     st.write(f"Interview ID: `{iid}`")
+#     st.write("Share a link like:")
+#     st.code("https://YOUR_HOST:7860/?sid=FRIEND123&iid=PART_TIME", language="text")
+#     st.caption("Use sid to tag invitees. iid switches study variants.")
 
-with st.sidebar:
-    if st.button("New session link"):
-        new_sid = str(uuid.uuid4())
-        st.query_params.update({"sid": new_sid, "iid": iid})
-        st.rerun()
+# with st.sidebar:
+#     if st.button("New session link"):
+#         new_sid = str(uuid.uuid4())
+#         st.query_params.update({"sid": new_sid, "iid": iid})
+#         st.rerun()
 
 # ------- state -------
 if "history" not in st.session_state:
