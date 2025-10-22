@@ -29,7 +29,8 @@ except Exception:
     params = st.experimental_get_query_params()
 
 sid_default = str(uuid.uuid4())
-sid = get_param(params, "sid", "1234")
+# Use the UUID when sid is absent in the URL
+sid = get_param(params, "sid", sid_default)
 iid = get_param(params, "iid", "PART_TIME")
 
 with st.sidebar:
@@ -37,9 +38,14 @@ with st.sidebar:
     st.write(f"Session ID: `{sid}`")
     st.write(f"Interview ID: `{iid}`")
     st.write("Share a link like:")
-    st.code(f"https://YOUR_HOST:7860/?sid=FRIEND123&iudebug=1&iid=PART_TIME", language="text")
-    st.caption("Use sid to tag invitees. iid lets you switch study variants.")
+    st.code("https://YOUR_HOST:7860/?sid=FRIEND123&iid=PART_TIME", language="text")
+    st.caption("Use sid to tag invitees. iid switches study variants.")
 
+with st.sidebar:
+    if st.button("New session link"):
+        new_sid = str(uuid.uuid4())
+        st.query_params.update({"sid": new_sid, "iid": iid})
+        st.rerun()
 
 # ------- state -------
 if "history" not in st.session_state:
@@ -117,14 +123,9 @@ if user_text:
 
 
 # ------- utilities -------
-col1, col2, col3 = st.columns(3)
-with col1:
-    if st.button("Clear chat"):
-        st.session_state.history = []
-        st.session_state.ended = False
-        st.rerun()
+col1 = st.columns(1)
 
-with col2:
+with col1:
     # limit to N turns if you wish
     MAX_TURNS = 200
     if len(st.session_state.history) >= MAX_TURNS and not st.session_state.ended:
