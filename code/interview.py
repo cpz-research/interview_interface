@@ -68,7 +68,7 @@ if st.session_state.interview_selected is None:
 
     # More readable display labels
     label_to_value = {
-        "Currenetly work part-time or not at all": "PART_TIME",
+        "Currently work part-time or not at all": "PART_TIME",
         "Currently working full-time": "FULL_TIME",
     }
 
