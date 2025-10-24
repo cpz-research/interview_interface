@@ -19,11 +19,9 @@ if st.session_state.consent_given is None:
     with col1:
         if st.button("Yes, I consent"):
             st.session_state.consent_given = True
-            st.experimental_rerun()
     with col2:
         if st.button("No, I do not consent"):
             st.session_state.consent_given = False
-            st.experimental_rerun()
 elif st.session_state.consent_given is False:
     st.warning("You did not consent. You cannot use this app.")
 else:
