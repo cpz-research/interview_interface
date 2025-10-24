@@ -43,7 +43,6 @@ if st.session_state.consent_given is None:
         if st.button("No, I do not consent"):
             st.session_state.consent_given = False  
             st.experimental_rerun()
-    st.stop() 
 
 elif st.session_state.consent_given is False:
     st.warning("You did not consent. You cannot use this app.")
@@ -56,12 +55,13 @@ if st.session_state.consent_given and st.session_state.interview_selected is Non
     st.title("Select Interview Type")
     st.markdown("Please choose which interview you would like to participate in:")
 
-    # Example selection
+    # Selection
     interview_options = ["PART_TIME", "FULL_TIME", "OTHER"]
     selected_iid = st.radio("Interview ID", interview_options)
 
     if st.button("Confirm"):
         st.session_state.interview_selected = selected_iid
+        st.experimental_rerun()
 
 # ------- Main chat -------
 if st.session_state.consent_given and st.session_state.interview_selected:
