@@ -135,8 +135,7 @@ if not st.session_state.history:
     with st.chat_message("assistant"):
         placeholder = st.empty()
         try:
-            # Empty message triggers backend to start interview
-            reply_text = call_backend("")
+            reply_text = call_backend("")  # Empty message to trigger first prompt
             placeholder.write(reply_text)
         except Exception as e:
             st.error(str(e))
@@ -144,6 +143,7 @@ if not st.session_state.history:
             placeholder.write(reply_text)
 
     st.session_state.history.append({"role": "assistant", "content": reply_text})
+    st.rerun()  # rerun instead of st.stop()
 
 
 # ---- Render chat history ----
