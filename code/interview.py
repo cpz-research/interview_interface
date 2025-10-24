@@ -59,12 +59,7 @@ if st.session_state.consent_given and st.session_state.interview_selected is Non
 # ------- Main chat -------
 if st.session_state.consent_given and st.session_state.interview_selected:
     st.title("Study Chat")
-    st.caption(f"You have consented. Selected interview: `{st.session_state.interview_selected}`")
-    
-    # Your existing chat code here...
-
-
-
+    st.caption("You have consented. Lets get started")
 
     # ------- session id and interview id from URL or defaults -------
     def get_param(params, key, default):
