@@ -13,23 +13,30 @@ if "consent_given" not in st.session_state:
     st.session_state.consent_given = None  # None = not decided yet
 
 if st.session_state.consent_given is None:
-    st.title("test Study Consent")
-    st.write("tesetestes By continuing you consent to anonymous logging of messages for research.")
+    st.title("Study Consent")
+    st.write("By continuing you consent to anonymous logging of messages for research.")
     col1, col2 = st.columns(2)
     with col1:
         if st.button("Yes, I consent"):
             st.session_state.consent_given = True
-            st.experimental_rerun() 
+            st.session_state._consent_clicked = True  # temporary flag
     with col2:
         if st.button("No, I do not consent"):
             st.session_state.consent_given = False
-            st.experimental_rerun() 
+            st.session_state._consent_clicked = True  # temporary flag
+
+    # trigger a natural rerun by reading & clearing the temporary flag
+    if "_consent_clicked" in st.session_state:
+        del st.session_state._consent_clicked
+
 elif st.session_state.consent_given is False:
     st.warning("You did not consent. You cannot use this app.")
+
 else:
     # ------- Main chat app -------
     st.title("Study Chat")
     st.caption("You have consented. Let's get started!")
+
 
     # ------- session id and interview id from URL or defaults -------
     def get_param(params, key, default):
