@@ -45,13 +45,15 @@ if st.session_state.consent_given is None:
     # Yes button
     if col1.button("Yes, I consent"):
         st.session_state.consent_given = True
+        st.rerun()
 
     # No button
     if col2.button("No, I do not consent"):
         st.session_state.consent_given = False
+        st.rerun()
 
     st.stop()  # halt execution until a button is clicked
-st.experimental_rerun()
+
 # ------- No consent -------
 if st.session_state.consent_given is False:
     st.warning("You did not consent. You cannot use this app.")
@@ -67,7 +69,7 @@ if st.session_state.interview_selected is None:
 
     if st.button("Confirm"):
         st.session_state.interview_selected = selected_iid
-        st.experimental_rerun()
+        st.rerun()
     st.stop()  # stop script until selection is confirmed
 
 # ------- Main chat -------
@@ -157,4 +159,4 @@ if user_text:
     if user_text.strip().lower() in {"stop", "end", "quit"}:
         st.session_state.ended = True
         st.toast("Session ended.", icon="🛑")
-    # no st.rerun() here — Streamlit automatically reruns on input
+    st.rerun()
