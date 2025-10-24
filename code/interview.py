@@ -82,7 +82,6 @@ if st.session_state.interview_selected is None:
 
 # ------- Main chat -------
 st.title("Study Chat")
-st.caption("You have consented. Let's get started")
 
 # Session and interview id
 def get_param(params, key, default):
@@ -103,26 +102,14 @@ sid_default = str(uuid.uuid4())
 sid = get_param(params, "sid", sid_default)
 iid = st.session_state.interview_selected
 
-# Sidebar
+# ---- Sidebar ----
 with st.sidebar:
     st.subheader("Session")
     st.write(f"Session ID: `{sid}`")
-    st.write(f"Interview ID: `{iid}`")
+    # Optionally hide internal IDs from participants
+    # st.write(f"Interview ID: `{iid}`")
 
-# Render chat history
-for msg in st.session_state.history:
-    with st.chat_message(msg["role"]):
-        st.write(msg["content"])
-
-# Chat input
-placeholder = "Type your message"
-if st.session_state.ended:
-    st.info("Session ended. Refresh the page or change sid to start a new one.")
-    user_text = None
-else:
-    user_text = st.chat_input(placeholder)
-
-# Backend call
+# ---- Helper: Backend call ----
 def call_backend(message: str) -> str:
     payload = {
         "route": "next",
@@ -142,7 +129,40 @@ def call_backend(message: str) -> str:
     data = r.json()
     return data.get("message") or json.dumps(data)
 
-# Handle user input
+
+# ---- Auto-start interview if no history ----
+if not st.session_state.history:
+    with st.chat_message("assistant"):
+        placeholder = st.empty()
+        try:
+            # Empty message triggers backend to start interview
+            reply_text = call_backend("")
+            placeholder.write(reply_text)
+        except Exception as e:
+            st.error(str(e))
+            reply_text = "There was an error reaching the server. Please try again later."
+            placeholder.write(reply_text)
+
+    st.session_state.history.append({"role": "assistant", "content": reply_text})
+    st.stop()  # Stop so the page reload shows the first message cleanly
+
+
+# ---- Render chat history ----
+for msg in st.session_state.history:
+    with st.chat_message(msg["role"]):
+        st.write(msg["content"])
+
+
+# ---- Chat input ----
+placeholder = "Type your message"
+if st.session_state.ended:
+    st.info("Session ended. Refresh the page or change sid to start a new one.")
+    user_text = None
+else:
+    user_text = st.chat_input(placeholder)
+
+
+# ---- Handle user input ----
 if user_text:
     st.session_state.history.append({"role": "user", "content": user_text})
     with st.chat_message("user"):
@@ -167,4 +187,5 @@ if user_text:
     if user_text.strip().lower() in {"stop", "end", "quit"}:
         st.session_state.ended = True
         st.toast("Session ended.", icon="🛑")
+
     st.rerun()
