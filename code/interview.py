@@ -153,4 +153,4 @@ if st.session_state.consent_given and st.session_state.interview_selected:
         if user_text.strip().lower() in {"stop", "end", "quit"}:
             st.session_state.ended = True
             st.toast("Session ended.", icon="🛑")
-        st.rerun()
+        st.experimental_rerun()
