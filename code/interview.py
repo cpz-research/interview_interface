@@ -20,7 +20,7 @@ if st.session_state.consent_given is None:
     st.title("Understanding working decisions of mothers")
     st.markdown(
         """
-        <p style='font-size:15px; color:#555555;'>
+        <p style='font-size:15px; color:black;'>
         <i>
         Hello, and thank you for participating!<br><br>
         We’re testing the setup of an <b>AI-assisted qualitative interview</b>. 
@@ -82,7 +82,7 @@ if st.session_state.consent_given and st.session_state.interview_selected:
 
     sid_default = str(uuid.uuid4())
     sid = get_param(params, "sid", sid_default)
-    iid = get_param(params, "iid", "PART_TIME")
+    iid = st.session_state.interview_selected
 
     with st.sidebar:
         st.subheader("Session")
