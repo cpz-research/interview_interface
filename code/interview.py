@@ -144,7 +144,6 @@ if not st.session_state.history:
             placeholder.write(reply_text)
 
     st.session_state.history.append({"role": "assistant", "content": reply_text})
-    st.stop()  # Stop so the page reload shows the first message cleanly
 
 
 # ---- Render chat history ----
