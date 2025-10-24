@@ -12,6 +12,9 @@ st.set_page_config(page_title="Study Chat", page_icon="💬", layout="centered")
 if "consent_given" not in st.session_state:
     st.session_state.consent_given = None
 
+if "interview_selected" not in st.session_state:
+    st.session_state.interview_selected = None
+
 if st.session_state.consent_given is None:
     st.title("Understanding working decisions of mothers")
     st.markdown(
