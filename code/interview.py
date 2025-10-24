@@ -13,8 +13,8 @@ if "consent_given" not in st.session_state:
     st.session_state.consent_given = None  # None = not decided yet
 
 if st.session_state.consent_given is None:
-    st.title("Study Consent")
-    st.write("By continuing you consent to anonymous logging of messages for research.")
+    st.title("test Study Consent")
+    st.write("tesetestes By continuing you consent to anonymous logging of messages for research.")
     col1, col2 = st.columns(2)
     with col1:
         if st.button("Yes, I consent"):
