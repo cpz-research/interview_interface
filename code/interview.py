@@ -12,6 +12,7 @@ st.set_page_config(page_title="Study Chat", page_icon="💬", layout="centered")
 if "consent_given" not in st.session_state:
     st.session_state.consent_given = None
 
+
 if "interview_selected" not in st.session_state:
     st.session_state.interview_selected = None
 
@@ -53,7 +54,7 @@ if st.session_state.consent_given and st.session_state.interview_selected is Non
     st.markdown("Please choose which interview you would like to participate in:")
 
     # Example selection
-    interview_options = ["FULL_TIME", "PART_TIME", ]
+    interview_options = ["PART_TIME", "FULL_TIME", "OTHER"]
     selected_iid = st.radio("Interview ID", interview_options)
 
     if st.button("Confirm"):
