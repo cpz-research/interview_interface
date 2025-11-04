@@ -62,16 +62,39 @@ if st.session_state.consent_given is False:
     st.warning("You did not consent. You cannot use this app.")
     st.stop()
 
-# ------- Interview selection page -------
-if st.session_state.interview_selected is None:
+
+# --- Step 1: Language selection ---
+if "language" not in st.session_state:
+    st.session_state.language = None
+
+if st.session_state.language is None:
+    st.title("Select Language / Kies taal")
+    st.markdown("Please select your preferred language / Kies je voorkeurstaal:")
+
+    selected_language = st.radio("", ["English", "Nederlands"])
+
+    if st.button("Confirm"):
+        st.session_state.language = selected_language
+        st.rerun()
+
+    st.stop()
+
+# --- Step 2: Interview type selection ---
+if st.session_state.get("interview_selected") is None:
     st.title("Select Interview Type")
     st.markdown("Please choose which interview you would like to participate in:")
 
-    # More readable display labels
-    label_to_value = {
-        "I am currently working part-time or not at all": "PART_TIME",
-        "I am currently working full-time": "FULL_TIME",
-    }
+    # Map display labels to internal values depending on language
+    if st.session_state.language == "English":
+        label_to_value = {
+            "I am currently working part-time or not at all": "PART_TIME",
+            "I am currently working full-time": "FULL_TIME",
+        }
+    else:  # Dutch
+        label_to_value = {
+            "Ik werk momenteel parttime of helemaal niet": "PART_TIME_DUTCH",
+            "Ik werk momenteel fulltime": "FULL_TIME_DUTCH",
+        }
 
     # Show readable labels
     selected_label = st.radio("Interview type", list(label_to_value.keys()))
