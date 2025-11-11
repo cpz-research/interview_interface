@@ -62,15 +62,15 @@ if st.session_state.consent_given is False:
     st.warning("You did not consent. You cannot use this app.")
     st.stop()
 
-# ------- Select language -------
+# ------- Interview selection page -------
 if "language" not in st.session_state:
     st.session_state.language = None
 
 if st.session_state.language is None:
-    st.title("Select Language")
-    st.markdown("Please select your preferred language")
+    st.title("Select Language / Kies taal")
+    st.markdown("Please select your preferred language / Kies je voorkeurstaal:")
 
-    selected_language = st.radio("", ["English", "Dutch"])
+    selected_language = st.radio("", ["English", "Nederlands"])
 
     if st.button("Confirm"):
         st.session_state.language = selected_language
@@ -78,59 +78,32 @@ if st.session_state.language is None:
 
     st.stop()
 
-# ------- Select age of youngest child -------
-if "age_youngest_child" not in st.session_state:
-    st.session_state.age = None
-
-if st.session_state.language is None:
-    st.title("Age of your youngest child")
-    st.markdown("Please select the age of your youngest child:")
-
-    selected_age = st.radio("", ["younger than 5", "5 or older"])
-
-    if st.button("Confirm"):
-        st.session_state.age = selected_age
-        st.rerun()
-
-    st.stop()
-    
-# --- Step 3: Select interview type ---
+# --- Step 2: Interview type selection ---
 if st.session_state.get("interview_selected") is None:
     st.title("Select Interview Type")
     st.markdown("Please choose which interview you would like to participate in:")
 
-    selected_hours = st.radio("", [
-        "I am currently working part-time or not at all",
-        "I am currently working full-time"
-    ])
-
-    if st.button("Confirm"):
-        # Store hours
-        st.session_state.hours = selected_hours
-
-        # Extract parameters
-        lang = st.session_state.language
-        age = st.session_state.age
-        hours = "part_time" if "part-time" in selected_hours else "full_time"
-
-        # Define all combinations
-        combination_map = {
-            ("English", "younger than 5", "part_time"): "PART_TIME",
-            ("English", "5 or older", "part_time"): "PART_TIME",
-            ("English", "younger than 5", "full_time"): "PART_TIME",
-            ("English", "5 or older", "full_time"): "PART_TIME",
-            ("Dutch", "younger than 5", "part_time"): "PART_TIME",
-            ("Dutch", "5 or older", "part_time"): "PART_TIME",
-            ("Dutch", "younger than 5", "full_time"): "PART_TIME",
-            ("Dutch", "5 or older", "full_time"): "PART_TIME",
+    # Map display labels to internal values depending on language
+    if st.session_state.language == "English":
+        label_to_value = {
+            "I am currently working part-time or not at all": "PART_TIME",
+            "I am currently working full-time": "FULL_TIME",
+        }
+    else:  # Dutch
+        label_to_value = {
+            "Ik werk momenteel parttime of helemaal niet": "PART_TIME_DUTCH",
+            "Ik werk momenteel fulltime": "PART_TIME_DUTCH",
         }
 
-        # Save internal code for later use
-        st.session_state.interview_selected = combination_map.get((lang, age, hours))
+    # Show readable labels
+    selected_label = st.radio("Interview type", list(label_to_value.keys()))
+
+    if st.button("Confirm"):
+        # Store the internal value
+        st.session_state.interview_selected = label_to_value[selected_label]
         st.rerun()
 
     st.stop()
-
 
 # ------- Main chat -------
 st.title("Study Chat")
