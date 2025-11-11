@@ -93,8 +93,7 @@ if st.session_state.language is None:
         st.rerun()
 
     st.stop()
-
-# --- Step 2: Select part-time or full-time  ---
+    
 # --- Step 3: Select interview type ---
 if st.session_state.get("interview_selected") is None:
     st.title("Select Interview Type")
@@ -111,19 +110,19 @@ if st.session_state.get("interview_selected") is None:
 
         # Extract parameters
         lang = st.session_state.language
-        age = st.session_state.age_youngest_child
+        age = st.session_state.age
         hours = "part_time" if "part-time" in selected_hours else "full_time"
 
         # Define all combinations
         combination_map = {
-            ("English", "younger than 5", "part_time"): "EN_PT_YOUNG",
-            ("English", "5 or older", "part_time"): "EN_PT_OLD",
-            ("English", "younger than 5", "full_time"): "EN_FT_YOUNG",
-            ("English", "5 or older", "full_time"): "EN_FT_OLD",
-            ("Dutch", "younger than 5", "part_time"): "NL_PT_YOUNG",
-            ("Dutch", "5 or older", "part_time"): "NL_PT_OLD",
-            ("Dutch", "younger than 5", "full_time"): "NL_FT_YOUNG",
-            ("Dutch", "5 or older", "full_time"): "NL_FT_OLD",
+            ("English", "younger than 5", "part_time"): "PART_TIME",
+            ("English", "5 or older", "part_time"): "PART_TIME",
+            ("English", "younger than 5", "full_time"): "PART_TIME",
+            ("English", "5 or older", "full_time"): "PART_TIME",
+            ("Dutch", "younger than 5", "part_time"): "PART_TIME",
+            ("Dutch", "5 or older", "part_time"): "PART_TIME",
+            ("Dutch", "younger than 5", "full_time"): "PART_TIME",
+            ("Dutch", "5 or older", "full_time"): "PART_TIME",
         }
 
         # Save internal code for later use
