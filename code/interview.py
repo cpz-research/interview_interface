@@ -79,7 +79,7 @@ if st.session_state.language is None:
     st.stop()
 
 # ------- Select age of youngest child -------
-if "age_youngest_child" not in st.session_state:
+if "age" not in st.session_state:
     st.session_state.age = None
 
 if st.session_state.age is None:
