@@ -115,14 +115,14 @@ if st.session_state.get("interview_selected") is None:
 
         # Define all combinations
         combination_map = {
-            ("English", "younger than 5", "part_time"): "PART_TIME",
-            ("English", "5 or older", "part_time"): "PART_TIME",
-            ("English", "younger than 5", "full_time"): "PART_TIME",
-            ("English", "5 or older", "full_time"): "PART_TIME",
-            ("Dutch", "younger than 5", "part_time"): "PART_TIME",
-            ("Dutch", "5 or older", "part_time"): "PART_TIME",
-            ("Dutch", "younger than 5", "full_time"): "PART_TIME",
-            ("Dutch", "5 or older", "full_time"): "PART_TIME",
+            ("English", "younger than 5", "part_time"): "PART_TIME_YOUNG_CHILD_ENG",
+            ("English", "5 or older", "part_time"): "PART_TIME_OLD_CHILD_ENG",
+            ("English", "younger than 5", "full_time"): "FULL_TIME_YOUNG_CHILD_ENG",
+            ("English", "5 or older", "full_time"): "FULL_TIME_OLD_CHILD_ENG",
+            ("Dutch", "younger than 5", "part_time"): "PART_TIME_YOUNG_CHILD",
+            ("Dutch", "5 or older", "part_time"): "PART_TIME_OLD_CHILD",
+            ("Dutch", "younger than 5", "full_time"): "FULL_TIME_YOUNG_CHILD",
+            ("Dutch", "5 or older", "full_time"): "FULL_TIME_OLD_CHILD",
         }
 
         # Save internal code for later use
